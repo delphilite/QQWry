@@ -1,6 +1,6 @@
 { *********************************************************************** }
 {                                                                         }
-{   检索 QQWry IP 信息单元 for 2007-xe8, x10, ansi/unicode, x86/x64/fmx   }
+{   QQWry for Delphi 2007-10.2, ansi/unicode, x86/64, vcl/fmx, win/linux  }
 {                                                                         }
 {   重构: Lsuper 2015.12.30                                               }
 {   备注:                                                                 }
@@ -22,7 +22,9 @@ type
   TQQWry = class(TObject)
   private
     FStream: TStream;
-
+{$IFDEF UNICODE}
+    FEncoding: TEncoding;
+{$ENDIF}
     FRecCount: LongWord;
     FFirstStartIp,
     FLastStartIp: LongWord;
@@ -68,6 +70,7 @@ type
     procedure ReadCountry;
   public
     constructor Create(const AStream: TStream);
+    destructor Destroy; override;
 
     function  Find(const AIP: string;
       out AAddress: string): Boolean;
@@ -122,6 +125,7 @@ uses
   Math;
 
 const
+  defQQCodePage         = 936;
   defQQWryFile          = 'QQWry.dat';
 
   defDateTimePrex       = 'IP数据';
@@ -189,7 +193,18 @@ constructor TQQWry.Create(const AStream: TStream);
 begin
   Assert(AStream <> nil);
   FStream := AStream;
+{$IFDEF UNICODE}
+  FEncoding := TEncoding.GetEncoding(defQQCodePage);
+{$ENDIF}
   if not LoadHeader then raise EQQWry.Create('LoadHeader Error');
+end;
+
+destructor TQQWry.Destroy;
+begin
+{$IFDEF UNICODE}
+  FreeAndNil(FEncoding);
+{$ENDIF}
+  inherited;
 end;
 
 function TQQWry.Find(const AIP: string; out AAddress: string): Boolean;
@@ -393,7 +408,11 @@ var
   B: Byte;
   S: TStringStream;
 begin
+{$IFDEF UNICODE}
+  S := TStringStream.Create('', FEncoding, False);
+{$ELSE}
   S := TStringStream.Create('');
+{$ENDIF}
   try
     with FStream do
     begin
