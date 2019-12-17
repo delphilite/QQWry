@@ -53,7 +53,6 @@ object MainForm: TMainForm
     Height = 25
     Caption = 'Dll'
     TabOrder = 3
-    OnClick = Button2Click
   end
   object ListView1: TListView
     Left = 16

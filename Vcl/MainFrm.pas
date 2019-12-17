@@ -14,7 +14,6 @@ type
     Edit2: TEdit;
     ListView1: TListView;
     procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure ListView1Data(Sender: TObject; Item: TListItem);
@@ -40,14 +39,6 @@ var
   S: string;
 begin
   Caption := BoolToStr(FFile.Find(Edit1.Text, S), True);
-  Edit2.Text := S;
-end;
-
-procedure TMainForm.Button2Click(Sender: TObject);
-var
-  S: string;
-begin
-  Caption := BoolToStr(GetLocation(Edit1.Text, S), True);
   Edit2.Text := S;
 end;
 

@@ -1,6 +1,6 @@
 { *********************************************************************** }
 {                                                                         }
-{   QQWry for Delphi 2007-10.2, ansi/unicode, x86/64, vcl/fmx, win/linux  }
+{   QQWry for Delphi 2007-10.3, ansi/unicode, vcl/fmx, win/osx/linux      }
 {                                                                         }
 {   重构: Lsuper 2015.12.30                                               }
 {   备注:                                                                 }
@@ -113,15 +113,10 @@ type
 
   function  GetIpAddress(const AIp: string;
     out AAddress: string): Boolean;
-  function  GetLocation(const AIp: string;
-    out AAddress: string): Boolean;
 
 implementation
 
 uses
-{$IFDEF MSWINDOWS}
-  Windows,
-{$ENDIF}
   Math;
 
 const
@@ -132,44 +127,6 @@ const
 
   defMarkPrex           = 'CZ88.NET';
   defIpFmt              = '%3d.%3d.%3d.%3d';
-
-////////////////////////////////////////////////////////////////////////////////
-//设计: Lsuper 2008.01.06
-//功能: 加载珊瑚虫 DLL 搜索 IP
-//参数:
-//注意:
-////////////////////////////////////////////////////////////////////////////////
-function GetLocation(const AIp: string; out AAddress: string): Boolean;
-{$IFDEF MSWINDOWS}
-const
-  conIPSearcherDll      = 'IPSearcher.dll';
-  conGetAddress         = '_GetAddress';
-var
-  nHandle: THandle;
-  P: PPAnsiChar;
-  GetIpAddress: function (AIp: PAnsiChar): PPAnsiChar; cdecl stdcall;
-begin
-  Result := False;
-  nHandle := LoadLibrary(conIPSearcherDll);
-  if nHandle <> 0 then
-  try
-    @GetIpAddress := GetProcAddress(nHandle, conGetAddress);
-    if not Assigned(GetIpAddress) then
-      Exit;
-    P := GetIpAddress(PAnsiChar(AnsiString(AIp)));
-    AAddress := string(P^);
-    Inc(P);
-    if P <> nil then AAddress := AAddress + string(P^);
-    Result := True;
-  finally
-    FreeLibrary(nHandle);
-  end;
-end;
-{$ELSE}
-begin
-  Result := False;
-end;
-{$ENDIF}
 
 ////////////////////////////////////////////////////////////////////////////////
 //设计: Lsuper 2008.01.06

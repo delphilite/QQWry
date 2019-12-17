@@ -4,13 +4,12 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.Layouts, FMX.Grid,
-  FMX.Edit, QQWry, System.Rtti, FMX.StdCtrls, FMX.Controls.Presentation;
+  System.Rtti, FMX.Grid.Style, FMX.StdCtrls, FMX.Edit, FMX.Forms, FMX.Grid, FMX.Types,
+  FMX.Controls, FMX.Controls.Presentation, FMX.ScrollBox, QQWry;
 
 type
   TMainForm = class(TForm)
     Button1: TButton;
-    Button2: TButton;
     Edit1: TEdit;
     Edit2: TEdit;
     StringColumn1: TStringColumn;
@@ -20,7 +19,6 @@ type
     StringColumn5: TStringColumn;
     StringGrid1: TGrid;
     procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure StringGrid1GetValue(Sender: TObject; const Col, Row: Integer;
@@ -45,14 +43,6 @@ var
   S: string;
 begin
   Caption := BoolToStr(FFile.Find(Edit1.Text, S), True);
-  Edit2.Text := S;
-end;
-
-procedure TMainForm.Button2Click(Sender: TObject);
-var
-  S: string;
-begin
-  Caption := BoolToStr(GetLocation(Edit1.Text, S), True);
   Edit2.Text := S;
 end;
 
