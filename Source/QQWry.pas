@@ -102,6 +102,14 @@ type
     destructor Destroy; override;
   end;
 
+  TQQWryMemoryFile = class(TQQWry)
+  private
+    FStream: TMemoryStream;
+  public
+    constructor Create(const AFile: string = ''); reintroduce;
+    destructor Destroy; override;
+  end;
+
   TQQWryResFile = class(TQQWry)
   private
     FStream: TStream;
@@ -469,6 +477,25 @@ begin
 end;
 
 destructor TQQWryFile.Destroy;
+begin
+  inherited;
+
+  FreeAndNil(FStream);
+end;
+
+{ TQQWryMemoryFile }
+
+constructor TQQWryMemoryFile.Create(const AFile: string);
+begin
+  FStream := TMemoryStream.Create;
+  if AFile = '' then
+    FStream.LoadFromFile(defQQWryFile)
+  else FStream.LoadFromFile(AFile);
+
+  inherited Create(FStream);
+end;
+
+destructor TQQWryMemoryFile.Destroy;
 begin
   inherited;
 
