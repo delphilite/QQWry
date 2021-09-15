@@ -46,7 +46,7 @@ object MainForm: TMainForm
     Touch.InteractiveGestures = [LongTap, DoubleTap]
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 2
-    Text = '114.114.114.1'
+    Text = '114.114.114.114'
     Position.X = 16.000000000000000000
     Position.Y = 16.000000000000000000
     Size.Width = 569.000000000000000000

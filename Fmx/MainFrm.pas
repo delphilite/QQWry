@@ -34,7 +34,7 @@ implementation
 
 {$R *.fmx}
 
-{.$R QQWry.res}
+{$R ..\Bin\QQWry.res}
 
 { TMainForm }
 
@@ -49,9 +49,9 @@ end;
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
 {
-  FFile := TQQWryResFile.Create('QQWry', RT_RCDATA);
-}
   FFile := TQQWryFile.Create;
+}
+  FFile := TQQWryResFile.Create('QQWry', RT_RCDATA);
 
   with StringGrid1, FFile do
   begin

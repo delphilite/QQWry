@@ -1,6 +1,6 @@
 # QQWry
 
-A Delphi interface to QQWry IP database.
+A [Delphi](http://www.embarcadero.com/products/delphi) interface to [QQWry](https://update.cz88.net/) IP database.
 
 ## 注意事项
 
