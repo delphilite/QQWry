@@ -1,6 +1,6 @@
 { *********************************************************************** }
 {                                                                         }
-{   QQWry for Delphi 2007-10.3, ansi/unicode, vcl/fmx, win/osx/linux      }
+{   QQWry for Delphi 2007-11, ansi/unicode, vcl/fmx, win/osx/linux/mobi   }
 {                                                                         }
 {   重构: Lsuper 2015.12.30                                               }
 {   备注:                                                                 }
@@ -25,22 +25,22 @@ type
 {$IFDEF UNICODE}
     FEncoding: TEncoding;
 {$ENDIF}
-    FRecCount: LongWord;
+    FRecCount: Cardinal;
     FFirstStartIp,
-    FLastStartIp: LongWord;
+    FLastStartIp: Cardinal;
 
     FAuthor,
     FDateTime: string;
 
     FStartIP,
-    FEndIP: LongWord;
+    FEndIP: Cardinal;
     FCountry: string;
     FLocal: string;
 
     FCountryFlag: Byte;
-    FEndIpOff: LongWord;
+    FEndIpOff: Cardinal;
   private
-    function  GetRecCount: LongWord;
+    function  GetRecCount: Cardinal;
 
     function  GetAuthor: string;
     function  GetDateTime: string;
@@ -51,21 +51,21 @@ type
     function  GetLocal: string;
   private
     function  IpToInt(const AIp: string;
-      out ARet: LongWord): Boolean;
-    function  IntToIp(AIp: LongWord): string;
+      out ARet: Cardinal): Boolean;
+    function  IntToIp(AIp: Cardinal): string;
 
-    function  Locate(AIp: LongWord): Boolean;
-    procedure ReadRecord(ARecNo: LongWord);
+    function  Locate(AIp: Cardinal): Boolean;
+    procedure ReadRecord(ARecNo: Cardinal);
 
     function  LoadHeader: Boolean;
     procedure LoadFileInfo;
 
-    function  ReadDataStr(AOffset: LongWord): string;
-    function  ReadFlagStr(AOffset: LongWord): string;
+    function  ReadDataStr(AOffset: Cardinal): string;
+    function  ReadFlagStr(AOffset: Cardinal): string;
 
-    procedure ReadCurInt3(out ARet: LongWord);
+    procedure ReadCurInt3(out ARet: Cardinal);
 
-    procedure ReadStartIp(ARecNo: LongWord);
+    procedure ReadStartIp(ARecNo: Cardinal);
     procedure ReadEndIp;
     procedure ReadCountry;
   public
@@ -74,13 +74,13 @@ type
 
     function  Find(const AIP: string;
       out AAddress: string): Boolean;
-    function  Seek(ARecIndex: LongWord): Boolean;
+    function  Seek(ARecIndex: Cardinal): Boolean;
 
     property  Author: string
       read GetAuthor;
     property  DateTime: string
       read GetDateTime;
-    property  RecCount: LongWord
+    property  RecCount: Cardinal
       read GetRecCount;
 
     property  StartIP: string
@@ -174,7 +174,7 @@ end;
 
 function TQQWry.Find(const AIP: string; out AAddress: string): Boolean;
 var
-  nIp: LongWord;
+  nIp: Cardinal;
 begin
   Result := IpToInt(AIp, nIp) and Locate(nIp);
   if Result then
@@ -212,7 +212,7 @@ begin
   Result := StringReplace(FLocal, defMarkPrex, '', [rfReplaceAll, rfIgnoreCase]);
 end;
 
-function TQQWry.GetRecCount: LongWord;
+function TQQWry.GetRecCount: Cardinal;
 begin
   Result := FRecCount;
 end;
@@ -222,14 +222,14 @@ begin
   Result := IntToIp(FStartIP);
 end;
 
-function TQQWry.IntToIp(AIp: LongWord): string;
+function TQQWry.IntToIp(AIp: Cardinal): string;
 var
   D: LongRec absolute AIp;
 begin
   with D do Result := Format(defIpFmt, [Bytes[3], Bytes[2], Bytes[1], Bytes[0]]);
 end;
 
-function TQQWry.IpToInt(const AIp: string; out ARet: LongWord): Boolean;
+function TQQWry.IpToInt(const AIp: string; out ARet: Cardinal): Boolean;
 var
   B: Integer;
   I, nError: Integer;
@@ -237,7 +237,7 @@ var
 begin
 {
   ARet := inet_addr(PChar(AIp));
-  Result := ARet <> LongWord(INADDR_NONE);
+  Result := ARet <> Cardinal(INADDR_NONE);
   if Result then ARet := ntohl(ARet);
 }
   Result := False;
@@ -319,9 +319,9 @@ end;
 //参数: 
 //注意: 
 ////////////////////////////////////////////////////////////////////////////////
-function TQQWry.Locate(AIp: LongWord): Boolean;
+function TQQWry.Locate(AIp: Cardinal): Boolean;
 var
-  nRecNo, nRangB, nRangE: LongWord;
+  nRecNo, nRangB, nRangE: Cardinal;
 begin
   nRangB := 0;
   nRangE := FRecCount;
@@ -362,13 +362,13 @@ begin
   end;
 end;
 
-procedure TQQWry.ReadCurInt3(out ARet: LongWord);
+procedure TQQWry.ReadCurInt3(out ARet: Cardinal);
 begin
   ARet := 0;
   FStream.Read(ARet, 3);
 end;
 
-function TQQWry.ReadDataStr(AOffset: LongWord): string;
+function TQQWry.ReadDataStr(AOffset: Cardinal): string;
 var
   B: Byte;
   S: TStringStream;
@@ -403,10 +403,10 @@ begin
   end;
 end;
 
-function TQQWry.ReadFlagStr(AOffset: LongWord): string;
+function TQQWry.ReadFlagStr(AOffset: Cardinal): string;
 var
   nFlag: Byte;
-  nOffset: LongWord;
+  nOffset: Cardinal;
 begin
   Result := '';
   nOffset := AOffset;
@@ -440,14 +440,14 @@ end;
 //参数: 
 //注意: 
 ////////////////////////////////////////////////////////////////////////////////
-procedure TQQWry.ReadRecord(ARecNo: LongWord);
+procedure TQQWry.ReadRecord(ARecNo: Cardinal);
 begin
   ReadStartIp(ARecNo);
   ReadEndIp;
   ReadCountry;
 end;
 
-procedure TQQWry.ReadStartIp(ARecNo: LongWord);
+procedure TQQWry.ReadStartIp(ARecNo: Cardinal);
 begin
   with FStream do
   begin
@@ -457,7 +457,7 @@ begin
   end;
 end;
 
-function TQQWry.Seek(ARecIndex: LongWord): Boolean;
+function TQQWry.Seek(ARecIndex: Cardinal): Boolean;
 begin
   Result := InRange(ARecIndex, 0, FRecCount - 1);
   if Result then ReadRecord(ARecIndex);
