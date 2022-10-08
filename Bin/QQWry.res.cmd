@@ -4,7 +4,7 @@ del QQWry.res
 
 echo QQWry RCDATA QQWry.dat > QQWry.rc
 
-brcc32 QQWry.rc
+"%bds%\bin\brcc32.exe" QQWry.rc
 
 rename QQWry.res QQWry.res
 
