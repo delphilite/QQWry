@@ -1,6 +1,6 @@
 { *********************************************************************** }
 {                                                                         }
-{   QQWry for Delphi 2007-11, Lazarus/Typhon/FPC/FMX x86/x64/arm64        }
+{   QQWry for Delphi 2007-12, Lazarus/Typhon/FPC/FMX x86/x64/arm64        }
 {                                                                         }
 {   ÖØ¹¹: Lsuper 2015.12.30                                               }
 {   ±¸×¢:                                                                 }

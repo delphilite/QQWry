@@ -5,10 +5,10 @@ object MainForm: TMainForm
   ClientHeight = 362
   ClientWidth = 584
   Color = clBtnFace
-  Font.Charset = GB2312_CHARSET
+  Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
-  Font.Name = #23435#20307
+  Font.Name = 'Segoe UI'
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
@@ -19,7 +19,7 @@ object MainForm: TMainForm
     584
     362)
   PixelsPerInch = 96
-  TextHeight = 12
+  TextHeight = 15
   object Edit1: TEdit
     Left = 16
     Top = 16

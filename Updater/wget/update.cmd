@@ -1,6 +1,6 @@
 del /Q qqwry.dat
 
-wget.exe -O setup.zip https://www.cz88.net/soft/SkqCYU-2022-10-05.zip
+wget.exe -O setup.zip https://www.cz88.net/soft/KG0NrjiB-2024-04-17.zip
 
 unzip.exe -o setup.zip setup.exe -d files
 innounp.exe  -dfiles -e -x -y files\setup.exe
