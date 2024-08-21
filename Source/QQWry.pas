@@ -1,13 +1,21 @@
-{ *********************************************************************** }
-{                                                                         }
-{   QQWry for Delphi 2007-12, Lazarus/Typhon/FPC/FMX x86/x64/arm64        }
-{                                                                         }
-{   重构: Lsuper 2015.12.30                                               }
-{   备注:                                                                 }
-{   审核:                                                                 }
-{   参考: http://topic.csdn.net/t/20041219/02/3657311.html                }
-{                                                                         }
-{ *********************************************************************** }
+{ ***************************************************** }
+{                                                       }
+{  Pascal language binding for QQWry Database           }
+{                                                       }
+{  Unit Name: QQWry Api Header                          }
+{     Author: Lsuper 2024.08.01                         }
+{    Purpose: QQWry                                     }
+{    License: Mozilla Public License 2.0                }
+{                                                       }
+{  Copyright (c) 1998-2024 Super Studio                 }
+{                                                       }
+{ ***************************************************** }
+
+{$IFDEF FPC}
+  {$MODE DELPHI}
+  {$WARNINGS OFF}
+  {$HINTS OFF}
+{$ENDIF FPC}
 
 unit QQWry;
 
@@ -95,8 +103,7 @@ type
 
   TQQWryFile = class(TQQWry)
   private
-    FStream: TStream;
-    FFile: string;
+    FFile: TStream;
   public
     constructor Create(const AFile: string = ''); reintroduce;
     destructor Destroy; override;
@@ -104,7 +111,7 @@ type
 
   TQQWryMemoryFile = class(TQQWry)
   private
-    FStream: TMemoryStream;
+    FMemoryFile: TMemoryStream;
   public
     constructor Create(const AFile: string = ''); reintroduce;
     destructor Destroy; override;
@@ -112,15 +119,14 @@ type
 
   TQQWryResFile = class(TQQWry)
   private
-    FStream: TStream;
+    FResFile: TStream;
   public
     constructor Create(const AResName: string;
       AResType: PChar); reintroduce;
     destructor Destroy; override;
   end;
 
-  function  GetIpAddress(const AIp: string;
-    out AAddress: string): Boolean;
+  function  GetIpAddress(const AIp: string; out AAddress: string): Boolean;
 
 implementation
 
@@ -466,40 +472,46 @@ end;
 { TQQWryFile }
 
 constructor TQQWryFile.Create(const AFile: string);
+var
+  F: string;
 begin
   if AFile = '' then
-    FFile := defQQWryFile
-  else FFile := AFile;
-  FFile := ExpandFileName(FFile);
-  FStream := TFileStream.Create(FFile, fmOpenRead or fmShareDenyWrite);
+    F := defQQWryFile
+  else F := AFile;
+  F := ExpandFileName(F);
+  FFile := TFileStream.Create(F, fmOpenRead or fmShareDenyWrite);
 
-  inherited Create(FStream);
+  inherited Create(FFile);
 end;
 
 destructor TQQWryFile.Destroy;
 begin
   inherited;
 
-  FreeAndNil(FStream);
+  FreeAndNil(FFile);
 end;
 
 { TQQWryMemoryFile }
 
 constructor TQQWryMemoryFile.Create(const AFile: string);
+var
+  F: string;
 begin
-  FStream := TMemoryStream.Create;
   if AFile = '' then
-    FStream.LoadFromFile(defQQWryFile)
-  else FStream.LoadFromFile(AFile);
+    F := defQQWryFile
+  else F := AFile;
+  F := ExpandFileName(F);
+  FMemoryFile := TMemoryStream.Create;
+  FMemoryFile.LoadFromFile(F);
 
-  inherited Create(FStream);
+  inherited Create(FMemoryFile);
 end;
 
 destructor TQQWryMemoryFile.Destroy;
 begin
   inherited;
 
-  FreeAndNil(FStream);
+  FreeAndNil(FMemoryFile);
 end;
 
 { TQQWryResFile }
@@ -507,16 +519,16 @@ end;
 constructor TQQWryResFile.Create(const AResName: string;
   AResType: PChar);
 begin
-  FStream := TResourceStream.Create(HInstance, AResName, AResType);
+  FResFile := TResourceStream.Create(HInstance, AResName, AResType);
 
-  inherited Create(FStream);
+  inherited Create(FResFile);
 end;
 
 destructor TQQWryResFile.Destroy;
 begin
   inherited;
 
-  FreeAndNil(FStream);
+  FreeAndNil(FResFile);
 end;
 
 end.

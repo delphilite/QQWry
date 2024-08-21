@@ -24,7 +24,7 @@ object MainForm: TMainForm
     Left = 16
     Top = 16
     Width = 553
-    Height = 20
+    Height = 23
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 0
     Text = '114.114.114.114'
@@ -33,7 +33,7 @@ object MainForm: TMainForm
     Left = 16
     Top = 48
     Width = 553
-    Height = 20
+    Height = 23
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 1
   end

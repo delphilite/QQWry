@@ -38,8 +38,9 @@ procedure TMainForm.Button1Click(Sender: TObject);
 var
   S: string;
 begin
-  Caption := BoolToStr(FFile.Find(Edit1.Text, S), True);
-  Edit2.Text := S;
+  if FFile.Find(Edit1.Text, S) then
+    Edit2.Text := S
+  else Edit2.Text := '';
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
