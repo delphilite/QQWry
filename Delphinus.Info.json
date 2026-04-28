@@ -1,0 +1,11 @@
+{
+	"id": "{9931CAE8-CFC0-44F4-940A-540CE4978A3F}",
+	"name": "QQWry",
+	"picture": "Doc\\Logo.png",
+	"license_type": "MPL-2.0",
+	"license_file": "License",
+	"platforms": "Win32;Win64;WinARM64EC;OSX32;OSX64;Android;Android64;IOSDevice32;IOSDevice64;Linux64",
+	"first_version": "1.0.0",
+	"package_compiler_min": 15,
+	"compiler_min": 15
+}
