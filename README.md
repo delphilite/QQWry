@@ -1,28 +1,203 @@
-# QQWry
+﻿# QQWry
 
-A [Delphi](http://www.embarcadero.com/products/delphi) interface to [QQWry](https://www.cz88.com/geo-public) IP database.
+![Version](https://img.shields.io/badge/version-v1.0-yellow.svg)
+![License](https://img.shields.io/github/license/delphilite/QQWry)
+![Lang](https://img.shields.io/github/languages/top/delphilite/QQWry.svg)
+![stars](https://img.shields.io/github/stars/delphilite/QQWry.svg)
 
-## 特别感谢
+[English](./README.md) | [Chinese](./README.zh-CN.md)
 
-纯真(CZ88.NET)自2005年起一直为广大社区用户提供社区版IP地址库，只要获得纯真的授权就能免费使用，并不断获取后续更新的版本。如果有需要免费版IP库的朋友可以前往纯真的官网进行申请。
-纯真除了免费的社区版IP库外，还提供数据更加准确、服务更加周全的商业版IP地址查询数据。纯真围绕IP地址，基于 网络空间拓扑测绘 + 移动位置大数据 方案，对IP地址定位、IP网络风险、IP使用场景、IP网络类型、秒拨侦测、VPN侦测、代理侦测、爬虫侦测、真人度等均有近20年丰富的数据沉淀。
+QQWry is a widely used IP geolocation database in the Chinese developer ecosystem. This library makes it easier to integrate QQWry lookups into Delphi, Lazarus, Free Pascal, and related Pascal-based applications.
 
-## 注意事项
+## Features
 
-返回数据需要客户端做一些预处理，多数数据是 XX省XX市 的形式；国外数据不太准，需要另外的解决方案（购买完整版 GeoIP 或者免费缩水版）
+* Read location data from `QQWry.dat`
+* Resolve IPv4 addresses to address strings
+* Support multiple loading modes:
+  - file-based access
+  - memory-loaded access
+  - resource-stream access
+* Expose database metadata and record navigation helpers
+* Simple API for quick integration
 
-## 格式参考
+## Requirements
 
-1. 纯真数据格式分析：https://blog.csdn.net/cnss/article/details/77628
-2. QQwry格式：https://blog.csdn.net/taft/article/details/77559
+- Delphi 2007 or later
+- A valid `QQWry.dat` database file
 
-## 资源更新
+## Installation: Manual
 
-1. 纯真数据库首页：https://www.cz88.net/
-2. 纯真最新数据库下载：https://update.cz88.net/geo-public
-3. 安装后在安装目录可以找到 QQWry.dat
-4. 安装后可以定期更新数据库，更新后还是去安装目录找 QQWry.dat
+To install the QQWry binding, follow these steps:
 
-## 其他
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/delphilite/QQWry.git
+    ```
 
-初步 Delphi 2007-12.x, Lazarus/Typhon/FPC/FMX x86/x64/arm64 一切正常，大家有问题及时反馈 ！？
+2. Add the QQWry\Source directory to the project or IDE's search path.
+3. Make sure Everything is installed and running on your system.
+
+## Installation: Delphinus-Support
+
+QQWry should now be listed in [Delphinus package manager](https://github.com/Memnarch/Delphinus/wiki/Installing-Delphinus).
+
+Be sure to restart Delphi after installing via Delphinus otherwise the units may not be found in your test projects.
+
+## Getting the database file
+
+This library does **not** bundle the QQWry database itself. Please download the latest `qqwry.dat` from the [`nmgliangwei/qqwry`](https://github.com/nmgliangwei/qqwry) project and place it where your application can access it.
+
+Direct download:
+
+`https://raw.githubusercontent.com/nmgliangwei/qqwry/main/qqwry.dat`
+
+By default, the file-based constructor expects the database file name to be:
+
+```text
+QQWry.dat
+```
+
+If you pass an empty path, the library uses that default file name.
+
+## Usage
+
+### 1. Basic lookup with `TQQWryFile`
+
+```pascal
+uses
+  SysUtils, QQWry;
+
+procedure TestLookup;
+var
+  QQ: TQQWryFile;
+  Address: string;
+begin
+  QQ := TQQWryFile.Create('QQWry.dat');
+  try
+    if QQ.Find('8.8.8.8', Address) then
+      Writeln('Address: ', Address)
+    else
+      Writeln('IP not found');
+  finally
+    QQ.Free;
+  end;
+end;
+```
+
+### 2. One-line helper lookup
+
+```pascal
+uses
+  SysUtils, QQWry;
+
+procedure TestSimpleLookup;
+var
+  Address: string;
+begin
+  if GetIpAddress('8.8.8.8', Address) then
+    Writeln(Address)
+  else
+    Writeln('Lookup failed');
+end;
+```
+
+### 3. Load the database into memory
+
+```pascal
+uses
+  SysUtils, QQWry;
+
+procedure TestMemoryLookup;
+var
+  QQ: TQQWryMemoryFile;
+  Address: string;
+begin
+  QQ := TQQWryMemoryFile.Create('QQWry.dat');
+  try
+    if QQ.Find('1.1.1.1', Address) then
+      Writeln(Address);
+  finally
+    QQ.Free;
+  end;
+end;
+```
+
+## Main API
+
+### Classes
+
+* `TQQWry`
+  * Base class for stream-based database access
+
+* `TQQWryFile`
+  * Reads from a file stream
+
+* `TQQWryMemoryFile`
+  * Loads the database into memory first
+
+* `TQQWryResFile`
+  * Reads the database from a compiled resource stream
+
+### Core methods
+
+* `Find(const AIP: string; out AAddress: string): Boolean`
+  * Looks up an IPv4 address and returns the resolved address text
+
+* `Seek(ARecIndex: Cardinal): Boolean`
+  * Reads a record by index
+
+### Helper function
+
+* `GetIpAddress(const AIp: string; out AAddress: string): Boolean`
+  * Convenience wrapper for quick lookups using the default database file
+
+### Useful properties
+
+* `Author`
+* `DateTime`
+* `RecCount`
+* `StartIP`
+* `EndIP`
+* `Country`
+* `Local`
+
+## Notes and caveats
+
+* The returned address text may require additional application-side normalization.
+* Many records are formatted in patterns similar to province/city combinations.
+* International location data may be less accurate than dedicated commercial GeoIP datasets.
+* The library works with **IPv4** string input.
+
+## Encoding
+
+QQWry data is handled using code page **936** in Unicode builds. If your application displays Chinese text, make sure your environment and UI controls are configured appropriately.
+
+## Error handling
+
+The library raises an exception if the database header cannot be loaded. Typical integration checks should include:
+
+* whether `QQWry.dat` exists
+* whether the file is readable
+* whether the database file is valid and up to date
+
+## Where to get help
+
+If you run into issues:
+
+* open an issue in this repository
+* check the `Demos` directory for usage examples
+* verify that your `QQWry.dat` file is valid and accessible
+
+## Contributing
+
+Contributions are welcome! Please fork this repository and submit pull requests with your improvements.
+
+## License
+
+This project is licensed under the Mozilla Public License 2.0. See the [LICENSE](LICENSE) file for details.
+
+## Acknowledgements
+
+Thanks to the QQWry / CZ88 ecosystem for providing the IP database format used by this project.
+
+If you need a more accurate or commercially supported dataset, consider the official commercial offerings from the QQWry provider.
