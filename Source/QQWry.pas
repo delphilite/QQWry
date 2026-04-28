@@ -7,7 +7,7 @@
 {    Purpose: QQWry                                     }
 {    License: Mozilla Public License 2.0                }
 {                                                       }
-{  Copyright (c) 1998-2024 Super Studio                 }
+{  Copyright (c) 1998-2026 Super Studio                 }
 {                                                       }
 { ***************************************************** }
 

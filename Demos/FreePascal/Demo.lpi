@@ -16,39 +16,6 @@
     </General>
     <BuildModes>
       <Item Name="Default" Default="True"/>
-      <Item Name="aarch64-android">
-        <CompilerOptions>
-          <Version Value="11"/>
-          <PathDelim Value="\"/>
-          <Target>
-            <Filename Value="..\..\Lib\$(TargetCPU)-$(TargetOS)\Demo"/>
-          </Target>
-          <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="..\..\Lib\$(TargetCPU)-$(TargetOS)"/>
-            <OtherUnitFiles Value="..\..\Source"/>
-            <UnitOutputDirectory Value="..\..\Dcu\$(TargetCPU)-$(TargetOS)"/>
-          </SearchPaths>
-          <CodeGeneration>
-            <SmartLinkUnit Value="True"/>
-            <TargetCPU Value="aarch64"/>
-            <TargetOS Value="android"/>
-            <Optimizations>
-              <OptimizationLevel Value="3"/>
-            </Optimizations>
-          </CodeGeneration>
-          <Linking>
-            <Debugging>
-              <GenerateDebugInfo Value="False"/>
-              <RunWithoutDebug Value="True"/>
-            </Debugging>
-            <LinkSmart Value="True"/>
-          </Linking>
-          <Other>
-            <CustomOptions Value="-k&quot;-rpath $ORIGIN&quot;"/>
-          </Other>
-        </CompilerOptions>
-      </Item>
       <Item Name="aarch64-darwin">
         <CompilerOptions>
           <Version Value="11"/>
@@ -115,7 +82,7 @@
           </Other>
         </CompilerOptions>
       </Item>
-      <Item Name="arm-android">
+      <Item Name="aarch64-win64">
         <CompilerOptions>
           <Version Value="11"/>
           <PathDelim Value="\"/>
@@ -130,8 +97,8 @@
           </SearchPaths>
           <CodeGeneration>
             <SmartLinkUnit Value="True"/>
-            <TargetCPU Value="arm"/>
-            <TargetOS Value="android"/>
+            <TargetCPU Value="aarch64"/>
+            <TargetOS Value="win64"/>
             <Optimizations>
               <OptimizationLevel Value="3"/>
             </Optimizations>
@@ -143,6 +110,9 @@
             </Debugging>
             <LinkSmart Value="True"/>
           </Linking>
+          <Other>
+            <CustomOptions Value="-k&quot;-rpath $ORIGIN&quot;"/>
+          </Other>
         </CompilerOptions>
       </Item>
       <Item Name="arm-linux">
@@ -162,6 +132,36 @@
             <SmartLinkUnit Value="True"/>
             <TargetCPU Value="arm"/>
             <TargetOS Value="linux"/>
+            <Optimizations>
+              <OptimizationLevel Value="3"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <RunWithoutDebug Value="True"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+          </Linking>
+        </CompilerOptions>
+      </Item>
+      <Item Name="arm-wince">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="..\..\Lib\$(TargetCPU)-$(TargetOS)\Demo"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <Libraries Value="..\..\Lib\$(TargetCPU)-$(TargetOS)"/>
+            <OtherUnitFiles Value="..\..\Source"/>
+            <UnitOutputDirectory Value="..\..\Dcu\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <TargetCPU Value="arm"/>
+            <TargetOS Value="wince"/>
             <Optimizations>
               <OptimizationLevel Value="3"/>
             </Optimizations>
@@ -251,6 +251,69 @@
           <CodeGeneration>
             <SmartLinkUnit Value="True"/>
             <TargetCPU Value="loongarch64"/>
+            <TargetOS Value="linux"/>
+            <Optimizations>
+              <OptimizationLevel Value="3"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <RunWithoutDebug Value="True"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+          </Linking>
+          <Other>
+            <CustomOptions Value="-k&quot;-rpath $ORIGIN&quot;"/>
+          </Other>
+        </CompilerOptions>
+      </Item>
+      <Item Name="riscv32-linux">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="..\..\Lib\$(TargetCPU)-$(TargetOS)\Demo"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <Libraries Value="..\..\Lib\$(TargetCPU)-$(TargetOS)"/>
+            <OtherUnitFiles Value="..\..\Source"/>
+            <UnitOutputDirectory Value="..\..\Dcu\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <TargetCPU Value="riscv32"/>
+            <TargetOS Value="linux"/>
+            <Optimizations>
+              <OptimizationLevel Value="3"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <RunWithoutDebug Value="True"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+          </Linking>
+        </CompilerOptions>
+      </Item>
+      <Item Name="riscv64-linux">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="..\..\Lib\$(TargetCPU)-$(TargetOS)\Demo"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <Libraries Value="..\..\Lib\$(TargetCPU)-$(TargetOS)"/>
+            <OtherUnitFiles Value="..\..\Source"/>
+            <UnitOutputDirectory Value="..\..\Dcu\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <TargetCPU Value="riscv64"/>
             <TargetOS Value="linux"/>
             <Optimizations>
               <OptimizationLevel Value="3"/>
