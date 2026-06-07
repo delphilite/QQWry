@@ -11,21 +11,23 @@ QQWry is a widely used IP geolocation database in the Chinese developer ecosyste
 
 ## Features
 
-* Read location data from `QQWry.dat`
-* Resolve IPv4 addresses to address strings
-* Support multiple loading modes:
+- Read location data from `QQWry.dat`
+- Resolve IPv4 addresses to address strings
+- Support multiple loading modes:
   - file-based access
   - memory-loaded access
   - resource-stream access
-* Expose database metadata and record navigation helpers
-* Simple API for quick integration
+- Expose database metadata and record navigation helpers
+- Simple API for quick integration
 
 ## Requirements
 
 - Delphi 2007 or later
 - A valid `QQWry.dat` database file
 
-## Installation: Manual
+## Installation
+
+### Manual
 
 To install the QQWry binding, follow these steps:
 
@@ -37,7 +39,7 @@ To install the QQWry binding, follow these steps:
 2. Add the QQWry\Source directory to the project or IDE's search path.
 3. Make sure Everything is installed and running on your system.
 
-## Installation: Delphinus-Support
+### Delphinus
 
 QQWry should now be listed in [Delphinus package manager](https://github.com/Memnarch/Delphinus/wiki/Installing-Delphinus).
 
@@ -45,11 +47,12 @@ Be sure to restart Delphi after installing via Delphinus otherwise the units may
 
 ## Getting the database file
 
-This library does **not** bundle the QQWry database itself. Please download the latest `qqwry.dat` from the [`nmgliangwei/qqwry`](https://github.com/nmgliangwei/qqwry) project and place it where your application can access it.
+Please download the latest `qqwry.dat` from the [`nmgliangwei/qqwry`](https://github.com/nmgliangwei/qqwry) project and place it where your application can access it.
 
 Direct download:
 
 `https://raw.githubusercontent.com/nmgliangwei/qqwry/main/qqwry.dat`
+`https://raw.githubusercontent.com/nmgliangwei/qqwry/main/qqwry_zh-hant.dat`
 
 By default, the file-based constructor expects the database file name to be:
 
@@ -194,7 +197,7 @@ Contributions are welcome! Please fork this repository and submit pull requests 
 
 ## License
 
-This project is licensed under the Mozilla Public License 2.0. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the Mozilla Public License 2.0. See [LICENSE](./LICENSE) for details.
 
 ## Acknowledgements
 

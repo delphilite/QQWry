@@ -1,17 +1,8 @@
-      QQ IP数据库 纯真版20240703
+czip db file info
+Name 	Value
+Dat File (Simplified Chinese) Fast Download: 	https://cdn.1008.site/gh/nmgliangwei/qqwry@main/qqwry.dat
+Dat File sha256: 	qqwry.dat: 495824826edcd25605833ad9c7a4fdb0f34cc758bedf29b431f7abb8f0db8fc9
+Dat File (Traditional Chinese) Fast Download: 	https://cdn.1008.site/gh/nmgliangwei/qqwry@main/qqwry_zh-hant.dat
+Dat File sha256: 	qqwry_zh-hant.dat: dde1a842477ef30204599b08641d3a3aa3e615c7cb4ce01dcedd0cf93f2586a0
 
-IP数据记录：1463859条
-数据库大小：24M
-      
-	收集了包括中国电信、中国移动、中国联通、长城宽带、聚友宽带等 ISP 的 IP 地址数据，包括网吧数据。
-希望能够通过大家的共同努力打造一个没有未知数据，没有错误数据的QQ IP。IP数据库每7天更新一次，请大家
-定期更新IP数据库！
-	因为IP地址数据是民间收集的，各运营商也会不时的更改IP段，所以有点遗漏、错误是难免的。随数据库附
-送IP解压，查询软件。假如发现IP地址有不对的，或想提供新的IP地址，请到网站https://www.cz88.net提供IP地址数据，
-或者发送电子邮件到admin@cz88.net告诉我们。以便及时更新IP数据库。谢谢！
-
-
-纯真网络：https://www.cz88.net
-
-QQ群: 482139657  EMail: admin@cz88.net
-
+Version: 2026-06-03 

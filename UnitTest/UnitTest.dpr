@@ -24,7 +24,7 @@ program UnitTest;
 {$IFEND}
 
 uses
-  System.SysUtils,
+  SysUtils,
 
   TestFramework,
   TextTestRunner,
