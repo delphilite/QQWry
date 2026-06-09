@@ -7,52 +7,59 @@
 
 [English](./README.md) | [Chinese](./README.zh-CN.md)
 
-QQWry is a widely used IP geolocation database in the Chinese developer ecosystem. This library makes it easier to integrate QQWry lookups into Delphi, Lazarus, Free Pascal, and related Pascal-based applications.
+QQWry is a Delphi/Pascal reader for the QQWry (CZ88) `.dat` IP geolocation database. It is designed for Delphi and Free Pascal applications that need simple offline IPv4 lookup support and currently focuses on the classic QQWry binary format (`QQWry.dat`).
 
 ## Features
 
-- Read location data from `QQWry.dat`
-- Resolve IPv4 addresses to address strings
-- Support multiple loading modes:
-  - file-based access
-  - memory-loaded access
-  - resource-stream access
-- Expose database metadata and record navigation helpers
-- Simple API for quick integration
+- Reads QQWry `.dat` database files from a file path, memory-loaded file, or `TStream`.
+- Resolves IPv4 addresses to location and ISP address strings.
+- Supports multiple loading modes:
+  - file-based access (`TQQWryFile`)
+  - memory-loaded access (`TQQWryMemoryFile`)
+  - resource-stream access (`TQQWryResFile`)
+- Exposes database metadata: author, build date/time, and record count.
+- Provides record navigation with `Seek` and `RecCount`.
+- Strips the `CZ88.NET` watermark from returned address text.
+- Includes DUnit tests and demos for VCL, FMX, Delphi console, and Free Pascal.
 
 ## Requirements
 
-- Delphi 2007 or later
+- Delphi 2007 or later, or Free Pascal with `{$MODE DELPHI}`
 - A valid `QQWry.dat` database file
 
 ## Installation
 
 ### Manual
 
-To install the QQWry binding, follow these steps:
+1. Clone this repository.
+2. Add the `Source` directory to your Delphi or Lazarus project search path.
+3. Add `QQWry` to your unit `uses` clause.
+4. Place a `QQWry.dat` database file where your application can read it.
 
-1. Clone the repository:
-    ```sh
-    git clone https://github.com/delphilite/QQWry.git
-    ```
-
-2. Add the QQWry\Source directory to the project or IDE's search path.
-3. Make sure Everything is installed and running on your system.
+```pascal
+uses
+  SysUtils, QQWry;
+```
 
 ### Delphinus
 
-QQWry should now be listed in [Delphinus package manager](https://github.com/Memnarch/Delphinus/wiki/Installing-Delphinus).
+This repository includes Delphinus metadata:
+
+- `Delphinus.Info.json`
+- `Delphinus.Install.json`
+
+After publishing the repository, it can be indexed by [Delphinus](https://github.com/Memnarch/Delphinus) as a source-only package.
 
 Be sure to restart Delphi after installing via Delphinus otherwise the units may not be found in your test projects.
 
 ## Getting the database file
 
-Please download the latest `qqwry.dat` from the [`nmgliangwei/qqwry`](https://github.com/nmgliangwei/qqwry) project and place it where your application can access it.
+Please download the latest database files from the [`nmgliangwei/qqwry`](https://github.com/nmgliangwei/qqwry) project and place them where your application can access them.
 
 Direct download:
 
-`https://raw.githubusercontent.com/nmgliangwei/qqwry/main/qqwry.dat`
-`https://raw.githubusercontent.com/nmgliangwei/qqwry/main/qqwry_zh-hant.dat`
+- `https://raw.githubusercontent.com/nmgliangwei/qqwry/main/qqwry.dat` (Simplified Chinese)
+- `https://raw.githubusercontent.com/nmgliangwei/qqwry/main/qqwry_zh-hant.dat` (Traditional Chinese)
 
 By default, the file-based constructor expects the database file name to be:
 
@@ -62,15 +69,17 @@ QQWry.dat
 
 If you pass an empty path, the library uses that default file name.
 
+The database files are data products from their respective providers. Check the provider license and redistribution terms before publishing them with a release or committing them to a public repository.
+
 ## Usage
 
-### 1. Basic lookup with `TQQWryFile`
+### Basic Lookup
 
 ```pascal
 uses
   SysUtils, QQWry;
 
-procedure TestLookup;
+procedure LookupIP;
 var
   QQ: TQQWryFile;
   Address: string;
@@ -87,13 +96,13 @@ begin
 end;
 ```
 
-### 2. One-line helper lookup
+### One-line Helper Lookup
 
 ```pascal
 uses
   SysUtils, QQWry;
 
-procedure TestSimpleLookup;
+procedure SimpleLookup;
 var
   Address: string;
 begin
@@ -104,13 +113,13 @@ begin
 end;
 ```
 
-### 3. Load the database into memory
+### Load the Database into Memory
 
 ```pascal
 uses
   SysUtils, QQWry;
 
-procedure TestMemoryLookup;
+procedure MemoryLookup;
 var
   QQ: TQQWryMemoryFile;
   Address: string;
@@ -125,75 +134,119 @@ begin
 end;
 ```
 
+### Load from a Resource Stream
+
+```pascal
+uses
+  SysUtils, QQWry;
+
+procedure ResourceLookup;
+var
+  QQ: TQQWryResFile;
+  Address: string;
+begin
+  QQ := TQQWryResFile.Create('QQWry', RT_RCDATA);
+  try
+    if QQ.Find('8.8.8.8', Address) then
+      Writeln(Address);
+  finally
+    QQ.Free;
+  end;
+end;
+```
+
+### Enumerate Records
+
+`TQQWry` lets you iterate records by index:
+
+```pascal
+var
+  QQ: TQQWryFile;
+  I: Cardinal;
+begin
+  QQ := TQQWryFile.Create('QQWry.dat');
+  try
+    for I := 0 to QQ.RecCount - 1 do
+    begin
+      if QQ.Seek(I) then
+        Writeln(Format('%s - %s: %s%s', [QQ.StartIP, QQ.EndIP, QQ.Country, QQ.Local]));
+    end;
+  finally
+    QQ.Free;
+  end;
+end;
+```
+
+### Metadata
+
+```pascal
+Writeln(QQ.Author);
+Writeln(QQ.DateTime);
+Writeln(QQ.RecCount);
+```
+
 ## Main API
 
 ### Classes
 
-* `TQQWry`
-  * Base class for stream-based database access
+| Class | Description |
+|-------|-------------|
+| `TQQWry` | Base class for stream-based database access |
+| `TQQWryFile` | Reads from a file stream (`TFileStream`) |
+| `TQQWryMemoryFile` | Loads the database into memory first (`TMemoryStream`) |
+| `TQQWryResFile` | Reads the database from a compiled resource stream (`TResourceStream`) |
 
-* `TQQWryFile`
-  * Reads from a file stream
+### Core Methods
 
-* `TQQWryMemoryFile`
-  * Loads the database into memory first
+| Method | Description |
+|--------|-------------|
+| `Find(const AIP: string; out AAddress: string): Boolean` | Looks up an IPv4 address and returns the resolved address text |
+| `Seek(ARecIndex: Cardinal): Boolean` | Reads a record by index; updates `StartIP`, `EndIP`, `Country`, `Local` |
 
-* `TQQWryResFile`
-  * Reads the database from a compiled resource stream
+### Helper Function
 
-### Core methods
+| Function | Description |
+|----------|-------------|
+| `GetIpAddress(const AIp: string; out AAddress: string): Boolean` | Convenience wrapper for quick lookups using the default database file |
 
-* `Find(const AIP: string; out AAddress: string): Boolean`
-  * Looks up an IPv4 address and returns the resolved address text
+### Properties
 
-* `Seek(ARecIndex: Cardinal): Boolean`
-  * Reads a record by index
-
-### Helper function
-
-* `GetIpAddress(const AIp: string; out AAddress: string): Boolean`
-  * Convenience wrapper for quick lookups using the default database file
-
-### Useful properties
-
-* `Author`
-* `DateTime`
-* `RecCount`
-* `StartIP`
-* `EndIP`
-* `Country`
-* `Local`
-
-## Notes and caveats
-
-* The returned address text may require additional application-side normalization.
-* Many records are formatted in patterns similar to province/city combinations.
-* International location data may be less accurate than dedicated commercial GeoIP datasets.
-* The library works with **IPv4** string input.
+| Property | Description |
+|----------|-------------|
+| `Author` | Database author metadata |
+| `DateTime` | Database build date/time |
+| `RecCount` | Total number of IP range records |
+| `StartIP` | Start IP of the current record (after `Find` or `Seek`) |
+| `EndIP` | End IP of the current record (after `Find` or `Seek`) |
+| `Country` | Country/region text of the current record |
+| `Local` | Local/ISP text of the current record |
 
 ## Encoding
 
-QQWry data is handled using code page **936** in Unicode builds. If your application displays Chinese text, make sure your environment and UI controls are configured appropriately.
+QQWry data is handled using code page **936** (GBK) in Unicode builds. If your application displays Chinese text, make sure your environment and UI controls are configured appropriately.
 
-## Error handling
+## Error Handling
 
-The library raises an exception if the database header cannot be loaded. Typical integration checks should include:
+The library raises `EQQWry` for invalid database files (e.g., when the header cannot be loaded). Passing `nil` to the `TQQWry.Create(TStream)` constructor triggers an assertion failure. Wrap database loading and lookups in normal Delphi `try/except` blocks when integrating into an application.
 
-* whether `QQWry.dat` exists
-* whether the file is readable
-* whether the database file is valid and up to date
+Typical integration checks should include:
 
-## Where to get help
+- whether `QQWry.dat` exists
+- whether the file is readable
+- whether the database file is valid and up to date
 
-If you run into issues:
+## Notes
 
-* open an issue in this repository
-* check the `Demos` directory for usage examples
-* verify that your `QQWry.dat` file is valid and accessible
+- Source files are kept as UTF-8 with Windows CRLF line endings.
+- The returned address text has the `CZ88.NET` watermark stripped automatically.
+- Many records are formatted in patterns similar to province/city combinations.
+- International location data may be less accurate than dedicated commercial GeoIP datasets.
+- The library works with **IPv4** string input only.
+- `GetIpAddress` creates and frees a `TQQWryFile` instance on each call; for repeated lookups, prefer creating a persistent `TQQWryFile` or `TQQWryMemoryFile` instance.
 
 ## Contributing
 
-Contributions are welcome! Please fork this repository and submit pull requests with your improvements.
+Contributions are welcome! Please fork this repository and submit pull requests with your improvements. Behavior changes should include matching DUnit coverage in `UnitTest/`.
 
 ## License
 

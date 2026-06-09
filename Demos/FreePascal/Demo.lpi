@@ -21,11 +21,10 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\Lib\$(TargetCPU)-$(TargetOS)\Demo"/>
+            <Filename Value="..\..\Bin\$(TargetCPU)-$(TargetOS)\Demo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="..\..\Lib\$(TargetCPU)-$(TargetOS)"/>
             <OtherUnitFiles Value="..\..\Source"/>
             <UnitOutputDirectory Value="..\..\Dcu\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
@@ -54,11 +53,10 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\Lib\$(TargetCPU)-$(TargetOS)\Demo"/>
+            <Filename Value="..\..\Bin\$(TargetCPU)-$(TargetOS)\Demo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="..\..\Lib\$(TargetCPU)-$(TargetOS)"/>
             <OtherUnitFiles Value="..\..\Source"/>
             <UnitOutputDirectory Value="..\..\Dcu\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
@@ -87,11 +85,10 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\Lib\$(TargetCPU)-$(TargetOS)\Demo"/>
+            <Filename Value="..\..\Bin\$(TargetCPU)-$(TargetOS)\Demo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="..\..\Lib\$(TargetCPU)-$(TargetOS)"/>
             <OtherUnitFiles Value="..\..\Source"/>
             <UnitOutputDirectory Value="..\..\Dcu\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
@@ -120,11 +117,10 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\Lib\$(TargetCPU)-$(TargetOS)\Demo"/>
+            <Filename Value="..\..\Bin\$(TargetCPU)-$(TargetOS)\Demo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="..\..\Lib\$(TargetCPU)-$(TargetOS)"/>
             <OtherUnitFiles Value="..\..\Source"/>
             <UnitOutputDirectory Value="..\..\Dcu\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
@@ -150,11 +146,10 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\Lib\$(TargetCPU)-$(TargetOS)\Demo"/>
+            <Filename Value="..\..\Bin\$(TargetCPU)-$(TargetOS)\Demo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="..\..\Lib\$(TargetCPU)-$(TargetOS)"/>
             <OtherUnitFiles Value="..\..\Source"/>
             <UnitOutputDirectory Value="..\..\Dcu\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
@@ -180,11 +175,10 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\Lib\$(TargetCPU)-$(TargetOS)\Demo"/>
+            <Filename Value="..\..\Bin\$(TargetCPU)-$(TargetOS)\Demo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="..\..\Lib\$(TargetCPU)-$(TargetOS)"/>
             <OtherUnitFiles Value="..\..\Source"/>
             <UnitOutputDirectory Value="..\..\Dcu\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
@@ -210,11 +204,10 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\Lib\$(TargetCPU)-$(TargetOS)\Demo"/>
+            <Filename Value="..\..\Bin\$(TargetCPU)-$(TargetOS)\Demo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="..\..\Lib\$(TargetCPU)-$(TargetOS)"/>
             <OtherUnitFiles Value="..\..\Source"/>
             <UnitOutputDirectory Value="..\..\Dcu\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
@@ -240,11 +233,10 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\Lib\$(TargetCPU)-$(TargetOS)\Demo"/>
+            <Filename Value="..\..\Bin\$(TargetCPU)-$(TargetOS)\Demo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="..\..\Lib\$(TargetCPU)-$(TargetOS)"/>
             <OtherUnitFiles Value="..\..\Source"/>
             <UnitOutputDirectory Value="..\..\Dcu\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
@@ -273,11 +265,10 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\Lib\$(TargetCPU)-$(TargetOS)\Demo"/>
+            <Filename Value="..\..\Bin\$(TargetCPU)-$(TargetOS)\Demo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="..\..\Lib\$(TargetCPU)-$(TargetOS)"/>
             <OtherUnitFiles Value="..\..\Source"/>
             <UnitOutputDirectory Value="..\..\Dcu\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
@@ -303,11 +294,10 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\Lib\$(TargetCPU)-$(TargetOS)\Demo"/>
+            <Filename Value="..\..\Bin\$(TargetCPU)-$(TargetOS)\Demo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="..\..\Lib\$(TargetCPU)-$(TargetOS)"/>
             <OtherUnitFiles Value="..\..\Source"/>
             <UnitOutputDirectory Value="..\..\Dcu\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
@@ -336,11 +326,10 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\Lib\$(TargetCPU)-$(TargetOS)\Demo"/>
+            <Filename Value="..\..\Bin\$(TargetCPU)-$(TargetOS)\Demo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="..\..\Lib\$(TargetCPU)-$(TargetOS)"/>
             <OtherUnitFiles Value="..\..\Source"/>
             <UnitOutputDirectory Value="..\..\Dcu\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
@@ -369,11 +358,10 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\Lib\$(TargetCPU)-$(TargetOS)\Demo"/>
+            <Filename Value="..\..\Bin\$(TargetCPU)-$(TargetOS)\Demo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="..\..\Lib\$(TargetCPU)-$(TargetOS)"/>
             <OtherUnitFiles Value="..\..\Source"/>
             <UnitOutputDirectory Value="..\..\Dcu\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
@@ -402,11 +390,10 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\Lib\$(TargetCPU)-$(TargetOS)\Demo"/>
+            <Filename Value="..\..\Bin\$(TargetCPU)-$(TargetOS)\Demo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="..\..\Lib\$(TargetCPU)-$(TargetOS)"/>
             <OtherUnitFiles Value="..\..\Source"/>
             <UnitOutputDirectory Value="..\..\Dcu\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
@@ -449,7 +436,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\..\Lib\$(TargetCPU)-$(TargetOS)\Demo"/>
+      <Filename Value="..\..\Bin\$(TargetCPU)-$(TargetOS)\Demo"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
@@ -466,7 +453,6 @@
       <Checks>
         <IOChecks Value="True"/>
         <RangeChecks Value="True"/>
-        <OverflowChecks Value="True"/>
         <StackChecks Value="True"/>
       </Checks>
       <VerifyObjMethodCallValidity Value="True"/>

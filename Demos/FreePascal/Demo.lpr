@@ -13,23 +13,28 @@
 
 program Demo;
 
-{$mode objfpc}{$H+}
+{$mode delphi}
 
 uses
   SysUtils, QQWry;
 
-procedure Test;
+procedure Test(const AFile: string; const AIP: string);
 var
   QQWryFile: TQQWry;
   S: string;
 begin
-  QQWryFile := TQQWryFile.Create;
+  QQWryFile := TQQWryFile.Create(AFile);
   with QQWryFile do
   try
-    Writeln(Format('作者：%s，时间：%s，数目：%d', [Author, DateTime, RecCount]));
-    if Find('8.8.8.8', S) then
-      Writeln('find 8.8.8.8: ' + S)
-    else Writeln('find 8.8.8.8 error!');
+    Writeln(Format('FileName: %s', [AFile]));
+    Writeln('');
+    Writeln(Format('Author: %s', [Author]));
+    Writeln(Format('DateTime: %s', [DateTime]));
+    Writeln(Format('RecCount: %d', [RecCount]));
+    Writeln('');
+    if Find(AIP, S) then
+      Writeln(Format('Find %s values: %s', [AIP, S]))
+    else Writeln(Format('Find %s Error!', [AIP]));
   finally
     Free;
   end;
@@ -37,7 +42,9 @@ end;
 
 begin
   try
-    Test;
+    Test('..\QQWry.dat', '8.8.8.8');
+    Writeln('');
+    Test('..\QQWry_zh-hant.dat', '8.8.8.8');
   except
     on E: Exception do
       WriteLn(E.ClassName, ': ', E.Message);

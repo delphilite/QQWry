@@ -34,7 +34,7 @@ implementation
 
 {$R *.fmx}
 
-{$R ..\Bin\QQWry.res}
+{$R ..\..\Bin\QQWry.res}
 
 { TMainForm }
 

@@ -46,14 +46,6 @@ object MainForm: TMainForm
     TabOrder = 2
     OnClick = Button1Click
   end
-  object Button2: TButton
-    Left = 104
-    Top = 80
-    Width = 75
-    Height = 25
-    Caption = 'Dll'
-    TabOrder = 3
-  end
   object ListView1: TListView
     Left = 16
     Top = 120
@@ -87,7 +79,7 @@ object MainForm: TMainForm
     OwnerData = True
     ReadOnly = True
     RowSelect = True
-    TabOrder = 4
+    TabOrder = 3
     ViewStyle = vsReport
     OnData = ListView1Data
     OnInfoTip = ListView1InfoTip
